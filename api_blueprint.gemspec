@@ -24,4 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rails'
   spec.add_runtime_dependency 'redcarpet'
   spec.add_runtime_dependency 'rspec-rails'
+  spec.add_runtime_dependency 'sass'
+  spec.add_runtime_dependency 'uglifier'
 end

@@ -2,7 +2,7 @@ module ApiBlueprint::Collect::ControllerHook
   def self.included(base)
     return unless ENV['API_BLUEPRINT_DUMP'] == '1'
 
-    base.around_filter :dump_blueprint_around
+    base.around_action :dump_blueprint_around
   end
 
   class Parser
@@ -28,7 +28,7 @@ module ApiBlueprint::Collect::ControllerHook
 
     def headers
       Hash[input.headers.env.select do |k, v|
-        (k.start_with?("HTTP_X_") || k == 'ACCEPT') && v
+        (k.to_s.start_with?("HTTP_X_") || k == 'ACCEPT') && v
       end.map do |k, v|
         [human_header_key(k), v]
       end]
@@ -92,7 +92,7 @@ module ApiBlueprint::Collect::ControllerHook
         'status'       => response.status,
         'content_type' => response.content_type,
         'body'         => out_parser.body,
-        'headers'      => response.headers
+        'headers'      => response.headers.to_hash,
       },
       'route' => {
         'controller'   => controller_name,

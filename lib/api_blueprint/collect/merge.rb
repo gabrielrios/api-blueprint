@@ -287,7 +287,7 @@ class ApiBlueprint::Collect::Merge
     map = []
 
     lines.each_with_index do |line, index|
-      if line.start_with?("<require:")
+      if line.to_s.start_with?("<require:")
         filename = line.split('<require:')[1].split('>')[0] + '.md'
         path = file.split('/')[0..-2].join('/')
 
